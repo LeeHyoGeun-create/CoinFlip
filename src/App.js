@@ -1,24 +1,34 @@
-import logo from './logo.svg';
-import './App.css';
+import Header from "./Header";
+import { BrowserRouter, Routes, Route } from "react-router-dom";
+import React, { useState } from "react";
+import Login from "./pages/Login";
+import CustomSolo from "./pages/CustomSolo";
+import RankFlip from "./pages/RankFlip";
+import Skin from "./pages/Skin";
+import Rank from "./pages/Rank";
 
 function App() {
+  const [isLogin, setIsLogin] = useState(false);
+
   return (
-    <div className="App">
-      <header className="App-header">
-        <img src={logo} className="App-logo" alt="logo" />
-        <p>
-          Edit <code>src/App.js</code> and save to reload.
-        </p>
-        <a
-          className="App-link"
-          href="https://reactjs.org"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          Learn React
-        </a>
-      </header>
-    </div>
+    <BrowserRouter>
+      <Header />
+      <main>
+        <Routes>
+          {isLogin ? (
+            <>
+              <Route path="/" element={<CustomSolo />} />
+              <Route path="/rankflip" element={<RankFlip />} />
+              <Route path="/rank" element={<Rank />} />
+              <Route path="/skin" element={<Skin />} />
+              <Route path="*" element={<CustomSolo />} />
+            </>
+          ) : (
+            <Route path="*" element={<Login />} />
+          )}
+        </Routes>
+      </main>
+    </BrowserRouter>
   );
 }
 
